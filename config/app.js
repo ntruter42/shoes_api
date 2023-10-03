@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { engine } from "express-handlebars";
 import session from "express-session";
 import flash from "express-flash";
@@ -8,6 +9,7 @@ import "dotenv/config";
 export default function App() {
 	const app = express();
 
+	app.use(cors());
 	app.use(express.static('public'));
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(bodyParser.json());
