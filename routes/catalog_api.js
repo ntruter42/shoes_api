@@ -30,6 +30,11 @@ shoes_api.get('/size/:size/brand/:brandname', async (req, res) => {
 	res.status(200).send(await services.getShoes(filters));
 });
 
+shoes_api.post('/sold/:id', async (req, res) => {
+	const shoe_id = req.params.id;
+	res.status(200).send(await services.sellShoe(shoe_id));
+});
+
 // ========== CARTS API ROUTES ========== //
 
 carts_api.get('/', async (req, res) => {

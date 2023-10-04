@@ -12,6 +12,15 @@ export default (db) => {
 		return await db.manyOrNone(query);
 	}
 
+	const sellShoe = async (shoe_id) => {
+		let query = `UPDATE shoe_catalog.shoes`;
+		query += ` SET in_stock = in_stock - 1`;
+		query += ` WHERE shoe_id = ${shoe_id}`;
+		query += ` AND in_stock > 0`;
+
+		await db.none(query);
+	}
+
 	const getCart = async (user_id) => {
 		let query = `SELECT * FROM shoe_catalog.carts`;
 		query += ` WHERE user_id = ${user_id}`;
@@ -21,6 +30,7 @@ export default (db) => {
 
 	return {
 		getShoes,
+		sellShoe,
 		getCart
 	}
 }
