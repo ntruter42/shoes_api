@@ -6,7 +6,8 @@ const router = Router();
 
 router.get('/', async (req, res) => {
 	try {
-		const shoes = (await axios.get('http://localhost:3000/api/shoes')).data;
+		const host = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+		const shoes = (await axios.get(`${host}api/shoes`)).data;
 
 		res.render('index', {
 			title: "Shoe Catalog",

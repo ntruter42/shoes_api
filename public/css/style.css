@@ -78,6 +78,16 @@ h1 {
 img {
 	width: 100%;
 	height: auto;
+}
+
+.shoe-img img {
+	width: 100%;
+	height: auto;
+
+	object-fit: cover;
+	object-position: center;
+	aspect-ratio: 1;
+
 	filter: contrast(1.25);
 }
 
@@ -148,9 +158,28 @@ img {
 /* ========== SHOE CATALOG ========== */
 
 .shoe-card {
+	background: #fffa;
+
 	border: 1px solid black;
+	border-radius: 1rem;
 
 	width: 18rem;
+}
+
+.shoe-img {
+	background: #fff;
+	border: 1px solid #0008;
+	border-radius: 0.75rem;
+
+	overflow: hidden;
+}
+
+.shoe-img img {
+	object-fit: cover;
+	object-position: center;
+	aspect-ratio: 1;
+
+	filter: contrast(1.25);
 }
 
 /********** MESSAGES **********/
