@@ -1,5 +1,21 @@
-<h1>Shoe Catalog</h1>
+<div class="flex col gap justify align view container">
+	<h1>{{title}}</h1>
 
-{{#each shoes}}
-<div>{{brand}} - {{price}}</div>
-{{/each}}
+	<div class="flex row gap wrap justify align container catalog-display">
+
+		{{#each shoes}}
+		<div class="flex col gap container shoe-card">
+			<div>
+				<img src="{{photo}}" alt="{{color}} {{brand}} {{name}} {{type}}">
+			</div>
+			<div class="flex col gap container shoe-details">
+				<div>R{{price}}</div>
+				<div>{{brand}} {{name}}</div>
+				<div>Color: {{color}}</div>
+				<div>Size: {{size}}</div>
+			</div>
+		</div>
+		{{/each}}
+
+	</div>
+</div>

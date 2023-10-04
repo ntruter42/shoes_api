@@ -20,6 +20,11 @@ shoes_api.get('/size/:size', async (req, res) => {
 	res.status(200).send(await services.getShoes(filters));
 });
 
+shoes_api.get('/brand/:brandname/size/:size', async (req, res) => {
+	const filters = { brand: req.params.brandname, size: req.params.size };
+	res.status(200).send(await services.getShoes(filters));
+});
+
 // ========== CARTS API ROUTES ========== //
 
 carts_api.get('/', async (req, res) => {
