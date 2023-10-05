@@ -21,6 +21,14 @@ export default (db) => {
 		await db.none(query);
 	}
 
+	const addShoe = async (shoe) => {
+		let query = `INSERT INTO shoe_catalog.shoes`;
+		query += ` (brand, name, size, color, price, photo, in_stock)`;
+		query += ` VALUES ('${shoe.brand}', '${shoe.name}', ${shoe.size}, '${shoe.color}', ${shoe.price}, '${shoe.photo}', ${shoe.in_stock})`
+
+		await db.none(query);
+	}
+
 	const getCart = async (user_id) => {
 		let query = `SELECT * FROM shoe_catalog.carts`;
 		query += ` WHERE user_id = ${user_id}`;
@@ -31,6 +39,7 @@ export default (db) => {
 	return {
 		getShoes,
 		sellShoe,
+		addShoe,
 		getCart
 	}
 }
