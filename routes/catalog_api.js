@@ -8,7 +8,12 @@ const carts_api = Router();
 
 shoes_api.get('/', async (req, res) => {
 	try {
-		res.status(200).send(await services.getShoes());
+		const filters = {
+			brand: req.query.brand,
+			size: req.query.size,
+			color: req.query.color
+		}
+		res.status(200).send(await services.getShoes(filters));
 	} catch (error) {
 		res.status(500).send(error);
 	}
@@ -62,8 +67,9 @@ shoes_api.post('/', async (req, res) => {
 
 shoes_api.post('/sold/:id', async (req, res) => {
 	try {
-		const shoe_id = req.params.id;
-		res.status(200).send(await services.sellShoe(shoe_id));
+		const item_id = req.params.id;
+		await services.sellShoe(item_id)
+		res.status(200).send("Success!");
 	} catch (error) {
 		res.status(500).send(error);
 	}
