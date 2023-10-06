@@ -4,7 +4,7 @@ import { services } from "../index.js";
 const shoes_api = Router();
 const carts_api = Router();
 
-// ========== SHOES API ROUTES ========== //
+// ==================== GET SHOES ROUTES ==================== //
 
 shoes_api.get('/', async (req, res) => {
 	try {
@@ -13,7 +13,8 @@ shoes_api.get('/', async (req, res) => {
 			size: req.query.size,
 			color: req.query.color
 		}
-		res.status(200).send(await services.getShoes(filters));
+		const shoes = await services.getShoes(filters);
+		res.status(200).send(shoes);
 	} catch (error) {
 		res.status(500).send(error);
 	}
@@ -22,7 +23,8 @@ shoes_api.get('/', async (req, res) => {
 shoes_api.get('/brand/:brandname', async (req, res) => {
 	try {
 		const filters = { brand: req.params.brandname };
-		res.status(200).send(await services.getShoes(filters));
+		const shoes = await services.getShoes(filters);
+		res.status(200).send(shoes);
 	} catch (error) {
 		res.status(500).send(error);
 	}
@@ -31,7 +33,8 @@ shoes_api.get('/brand/:brandname', async (req, res) => {
 shoes_api.get('/size/:size', async (req, res) => {
 	try {
 		const filters = { size: req.params.size };
-		res.status(200).send(await services.getShoes(filters));
+		const shoes = await services.getShoes(filters);
+		res.status(200).send(shoes);
 	} catch (error) {
 		res.status(500).send(error);
 	}
@@ -40,47 +43,42 @@ shoes_api.get('/size/:size', async (req, res) => {
 shoes_api.get('/brand/:brandname/size/:size', async (req, res) => {
 	try {
 		const filters = { brand: req.params.brandname, size: req.params.size };
-		res.status(200).send(await services.getShoes(filters));
+		const shoes = await services.getShoes(filters);
+		res.status(200).send(shoes);
 	} catch (error) {
 		res.status(500).send(error);
 	}
 });
 
-shoes_api.get('/size/:size/brand/:brandname', async (req, res) => {
-	try {
-		const filters = { brand: req.params.brandname, size: req.params.size };
-		res.status(200).send(await services.getShoes(filters));
-	} catch (error) {
-		res.status(500).send(error);
-	}
-});
+// ==================== ADD SHOE ROUTES ==================== //
 
 shoes_api.post('/', async (req, res) => {
 	try {
 		const shoe = req.body;
 		await services.addShoe(shoe);
-		res.status(200).send(`${shoe.in_stock}x ${shoe.color} ${shoe.brand} ${shoe.name}'s successfully added to catalog`);
+		res.status(200).send("Success");
 	} catch (error) {
 		res.status(500).send(error);
 	}
 });
+
+// ==================== SELL SHOE ROUTES ==================== //
 
 shoes_api.post('/sold/:id', async (req, res) => {
 	try {
 		const item_id = req.params.id;
 		await services.sellShoe(item_id)
-		res.status(200).send("Success!");
+		res.status(200).send("Success");
 	} catch (error) {
 		res.status(500).send(error);
 	}
 });
 
+// ==================== SHOPPING CART ROUTES ==================== //
 
-// ========== CARTS API ROUTES ========== //
-
-carts_api.get('/', async (req, res) => {
-	const user_id = 100; // get user_id for logged in user ie. req.session.user_id
-	res.status(200).send(await services.getCart(user_id));
+carts_api.get('/:user_id', async (req, res) => {
+	const cart = await services.getCart(req.params.user_id);
+	res.status(200).send(cart);
 });
 
 export { shoes_api };
