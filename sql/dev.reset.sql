@@ -1,17 +1,22 @@
-DROP TABLE IF EXISTS shoe_catalog.carts;
 DROP TABLE IF EXISTS shoe_catalog.users;
 DROP TABLE IF EXISTS shoe_catalog.shoes;
+DROP TABLE IF EXISTS shoe_catalog.sizes;
+DROP TABLE IF EXISTS shoe_catalog.colors;
+DROP TABLE IF EXISTS shoe_catalog.photos;
+DROP TABLE IF EXISTS shoe_catalog.stock;
+DROP TABLE IF EXISTS shoe_catalog.carts;
+DROP TABLE IF EXISTS shoe_catalog.cart_items;
 
-CREATE TABLE shoe_catalog.shoes (
-	shoe_id SERIAL PRIMARY KEY,
-	brand VARCHAR(255) NOT NULL,
-	name VARCHAR(255) NOT NULL,
-	size INT NOT NULL,
-	color VARCHAR(255) NOT NULL,
-	price FLOAT NOT NULL,
-	photo VARCHAR(255) NOT NULL,
-	in_stock INT NOT NULL
-);
+-- CREATE TABLE shoe_catalog.shoes (
+-- 	shoe_id SERIAL PRIMARY KEY,
+-- 	brand VARCHAR(255) NOT NULL,
+-- 	name VARCHAR(255) NOT NULL,
+-- 	size INT NOT NULL,
+-- 	color VARCHAR(255) NOT NULL,
+-- 	photo VARCHAR(255) NOT NULL,
+-- 	price FLOAT NOT NULL,
+-- 	in_stock INT NOT NULL
+-- );
 
 CREATE TABLE shoe_catalog.users (
 	user_id SERIAL PRIMARY KEY,
@@ -20,16 +25,41 @@ CREATE TABLE shoe_catalog.users (
 	password VARCHAR(60) NOT NULL
 );
 
-CREATE TABLE shoe_catalog.carts (
-	user_id INT NOT NULL,
-	shoe_id INT NOT NULL,
-	PRIMARY KEY (user_id, shoe_id),
-	FOREIGN KEY (user_id) REFERENCES shoe_catalog.users(user_id) ON DELETE CASCADE,
-	FOREIGN KEY (shoe_id) REFERENCES shoe_catalog.shoes(shoe_id) ON DELETE CASCADE
+CREATE TABLE shoe_catalog.shoes (
+    shoe_id SERIAL PRIMARY KEY,
+    brand VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL NOT NULL,
+	UNIQUE (brand, name)
 );
 
-ALTER SEQUENCE shoe_catalog.shoes_shoe_id_seq RESTART WITH 100;
-ALTER SEQUENCE shoe_catalog.users_user_id_seq RESTART WITH 100;
+CREATE TABLE shoe_catalog.stock (
+    shoe_id INT REFERENCES shoe_catalog.shoes(shoe_id) ON DELETE CASCADE,
+	color VARCHAR(255) NOT NULL,
+    size INT NOT NULL,
+	count INT NOT NULL,
+	UNIQUE (color, size)
+);
+
+CREATE TABLE shoe_catalog.photos (
+    shoe_id INT REFERENCES shoe_catalog.shoes(shoe_id) ON DELETE CASCADE,
+	color VARCHAR(255) REFERENCES shoe_catalog.stock(color) ON DELETE CASCADE,
+	photo_url TEXT
+);
+
+CREATE TABLE shoe_catalog.carts (
+	cart_id SERIAL PRIMARY KEY,
+	user_id INT NOT NULL REFERENCES shoe_catalog.users(user_id) ON DELETE CASCADE,
+	paid BOOLEAN DEFAULT false
+);
+
+CREATE TABLE shoe_catalog.cart_items (
+	cart_id INT NOT NULL REFERENCES shoe_catalog.carts(cart_id) ON DELETE CASCADE
+	shoe_id INT NOT NULL REFERENCES shoe_catalog.shoes(shoe_id) ON DELETE CASCADE
+);
+
+ALTER SEQUENCE shoe_catalog.users_user_id_seq RESTART WITH 1000;
+ALTER SEQUENCE shoe_catalog.shoes_shoe_id_seq RESTART WITH 1000;
 
 INSERT INTO shoe_catalog.shoes (brand, name, size, color, price, photo, in_stock) VALUES ('Nike', 'Air Max 90', 10, 'Black', 2499.99, 'https://i.ibb.co/hBkjfd7/nike-airmax90-black.webp', 5);
 INSERT INTO shoe_catalog.shoes (brand, name, size, color, price, photo, in_stock) VALUES ('Under Armour', 'Micro G Valsetz', 10, 'Gold', 2899.99, 'https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp', 2);

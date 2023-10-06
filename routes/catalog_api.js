@@ -54,7 +54,7 @@ shoes_api.post('/', async (req, res) => {
 	try {
 		const shoe = req.body;
 		await services.addShoe(shoe);
-		res.status(200).send();
+		res.status(200).send(`${shoe.in_stock}x ${shoe.color} ${shoe.brand} ${shoe.name}'s successfully added to catalog`);
 	} catch (error) {
 		res.status(500).send(error);
 	}
