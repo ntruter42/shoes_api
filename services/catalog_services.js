@@ -29,6 +29,37 @@ export default (db) => {
 		return await db.manyOrNone(query);
 	}
 
+	const getShoeCatalog = async () => {
+		let query = `SELECT shoe_id, brand, model, price FROM ${t.shoes}`;
+		query += ` WHERE shoe_id = ${shoe_id}`;
+		query += ` AND stock_count > 0`;
+		
+		const shoes = await db.manyOrNone(query);
+		// Not scalable (slow), process data from getShoes() in API routes instead
+		shoes.map(async (shoe) => {
+			shoe.variants = await getShoeVariants(shoe.shoe_id);
+			shoe.photos = await getShoePhotos(shoe.shoe_id);
+		});
+
+		return shoes;
+	}
+
+	const getShoeVariants = async (shoe_id) => {
+		let query = `SELECT color, size, stock_count FROM ${t.stock}`;
+		query += ` WHERE shoe_id = ${shoe_id}`;
+		query += ` AND stock_count > 0`;
+
+		return await db.manyOrNone(query);
+	}
+
+	const getShoePhotos = async (shoe_id) => {
+		let query = `SELECT color, photo_url FROM ${t.photos}`;
+		query += ` WHERE shoe_id = ${shoe_id}`;
+		query += ` AND stock_count > 0`;
+
+		return await db.manyOrNone(query);
+	}
+
 	const getItemID = async (shoe_id, color, size) => {
 		let query = `SELECT item_id FROM ${t.stock}`;
 		query += ` JOIN ${t.stock} ON ${t.stock}.shoe_id = ${t.shoes}.shoe_id`;
@@ -39,7 +70,7 @@ export default (db) => {
 
 		return (await db.one(query)).item_id;
 	}
-
+	
 	const sellShoe = async (item_id) => {
 		let query = `UPDATE ${t.stock}`;
 		query += ` SET stock_count = stock_count - 1`;
@@ -75,7 +106,7 @@ export default (db) => {
 			let query = `INSERT INTO ${t.shoes} (brand, model, price)`;
 			query += ` VALUES ('${shoe.brand}', '${shoe.model}', ${shoe.price})`;
 			query += ` ON CONFLICT ON CONSTRAINT shoe_name DO UPDATE SET price = ${shoe.price}`;
-			query += ` RETURNING ${t.shoes}.shoe_id`;
+			query += ` RETURNING shoe_id`;
 
 			const shoe_id = (await db.one(query)).shoe_id;
 
@@ -109,6 +140,7 @@ export default (db) => {
 
 	return {
 		getShoes,
+		getShoeCatalog,
 		getItemID,
 		sellShoe,
 		addShoe,

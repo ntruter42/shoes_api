@@ -19,13 +19,14 @@ CREATE TABLE shoe_catalog.stock (
 	color VARCHAR(255) NOT NULL,
     size INT NOT NULL,
 	stock_count INT NOT NULL,
-	CONSTRAINT shoe_variant UNIQUE (color, size)
+	CONSTRAINT shoe_variant UNIQUE (shoe_id, color, size)
 );
 
 CREATE TABLE shoe_catalog.photos (
 	shoe_id INT REFERENCES shoe_catalog.shoes(shoe_id) ON DELETE CASCADE,
     color VARCHAR(255) NOT NULL,
-	photo_url TEXT UNIQUE
+	photo_url TEXT UNIQUE NOT NULL,
+	CONSTRAINT shoe_color UNIQUE (shoe_id, color)
 );
 
 CREATE TABLE shoe_catalog.users (
@@ -81,9 +82,9 @@ INSERT INTO shoe_catalog.stock (shoe_id, color, size, stock_count) VALUES (1001,
 -- INSERT INTO shoe_catalog.stock (shoe_id, color, size, stock_count) VALUES (1001, 'Black', 11, 2);
 INSERT INTO shoe_catalog.photos (shoe_id, color, photo_url) VALUES (1001, 'Black', 'https://i.ibb.co/hBkjfd7/nike-airmax90-black.webp');
 
-INSERT INTO shoe_catalog.shoes (brand, model, price) VALUES ('Under Armour', 'Micro G Valsetz', 2899);
-INSERT INTO shoe_catalog.stock (shoe_id, color, size, stock_count) VALUES (1002, 'Gold', 12, 1);
-INSERT INTO shoe_catalog.photos (shoe_id, color, photo_url) VALUES (1002, 'Gold', 'https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp');
+-- INSERT INTO shoe_catalog.shoes (brand, model, price) VALUES ('Under Armour', 'Micro G Valsetz', 2899);
+-- INSERT INTO shoe_catalog.stock (shoe_id, color, size, stock_count) VALUES (1002, 'Gold', 12, 1);
+-- INSERT INTO shoe_catalog.photos (shoe_id, color, photo_url) VALUES (1002, 'Gold', 'https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp');
 
 -- ADD USERS AND CARTS
 -- Step 1: Create user account

@@ -1,9 +1,9 @@
 import app_setup from "./config/app.js";
 import db_config from "./config/database.js";
-import { shoes_api } from "./routes/catalog_api.js";
-import { carts_api } from "./routes/catalog_api.js";
 import catalog_services from "./services/catalog_services.js";
 import catalog_routes from "./routes/catalog_routes.js";
+import { shoes_api } from "./routes/catalog_api.js";
+import { carts_api } from "./routes/catalog_api.js";
 
 const app = app_setup();
 const db = db_config();
