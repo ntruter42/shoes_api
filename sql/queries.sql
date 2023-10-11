@@ -23,8 +23,8 @@ SELECT color FROM shoe_catalog.stock
 GROUP BY color
 
 -- Select sizes
-SELECT color FROM shoe_catalog.stock
-GROUP BY color
+SELECT size FROM shoe_catalog.stock
+GROUP BY size
 
 -- Decrement stock for a shoe variant
 UPDATE shoe_catalog.stock

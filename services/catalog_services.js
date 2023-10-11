@@ -29,11 +29,34 @@ export default (db) => {
 		return await db.manyOrNone(query);
 	}
 
+	const getShoe = async (shoe_id, filters) => {
+		let query = `SELECT * FROM ${t.stock}`;
+		query += ` JOIN ${t.shoes} ON ${t.shoes}.shoe_id = ${t.stock}.shoe_id`;
+		query += ` JOIN ${t.photos} ON ${t.photos}.shoe_id = ${t.shoes}.shoe_id`;
+		query += ` AND ${t.photos}.color = ${t.stock}.color`;
+
+		if (shoe_id) {
+			query += ` WHERE ${t.stock}.shoe_id = ${shoe_id}`;
+
+			for (const type of Object.keys(filters || {})) {
+				if (filters[type]) {
+					if (type === 'color') {
+						query += ` AND ${t.stock}.color = '${filters[type]}'`
+					} else if (filters[type] != '') {
+						query += ` AND ${type} = '${filters[type]}'`;
+					}
+				}
+			}
+		}
+
+		return await db.manyOrNone(query);
+	}
+
 	const getShoeCatalog = async () => {
 		let query = `SELECT shoe_id, brand, model, price FROM ${t.shoes}`;
 		query += ` WHERE shoe_id = ${shoe_id}`;
 		query += ` AND stock_count > 0`;
-		
+
 		const shoes = await db.manyOrNone(query);
 		// Not scalable (slow), process data from getShoes() in API routes instead
 		shoes.map(async (shoe) => {
@@ -70,7 +93,7 @@ export default (db) => {
 
 		return (await db.one(query)).item_id;
 	}
-	
+
 	const sellShoe = async (item_id) => {
 		let query = `UPDATE ${t.stock}`;
 		query += ` SET stock_count = stock_count - 1`;
@@ -118,6 +141,7 @@ export default (db) => {
 			query = query.slice(0, -1);
 			// TODO: add stock count for variants that already exist
 			// query += ` ON CONFLICT ON CONSTRAINT shoe_variant DO UPDATE SET stock_count = stock_count + ${variant.stock_count}`;
+			query += ` ON CONFLICT ON CONSTRAINT shoe_variant DO NOTHING`;
 			await db.none(query);
 
 			query = `INSERT INTO ${t.photos} (shoe_id, color, photo_url)`;
@@ -126,8 +150,26 @@ export default (db) => {
 				query += ` (${shoe_id}, '${photo.color}', '${photo.photo_url}'),`;
 			}
 			query = query.slice(0, -1);
+			query += ` ON CONFLICT ON CONSTRAINT shoe_color DO NOTHING`;
 			await db.none(query);
+
+			// const shoe_id = 1002;
+			// const stock = { "color": "Black", "size": 9, "stock_count": 2 };
+
+			// db.none(`
+			// INSERT INTO shoe_catalog.stock (shoe_id, color, size, stock_count)
+			// VALUES ($1, $2, $3, $4)
+			// ON CONFLICT ON CONSTRAINT shoe_variant DO UPDATE SET stock_count = stock_count + $4
+			// `, [shoe_id, stock.color, stock.size, stock.stock_count]);
 		}
+
+		// const stock = [
+		// 	{ "color": "Black", "size": 9, "stock_count": 2 },
+		// 	{ "color": "Black", "size": 10, "stock_count": 2 },
+		// 	{ "color": "Black", "size": 11, "stock_count": 1 },
+		// 	{ "color": "Gold", "size": 9, "stock_count": 1 },
+		// 	{ "color": "Gold", "size": 10, "stock_count": 1 }
+		// ];
 	}
 
 	const getCart = async (user_id) => {
@@ -140,6 +182,7 @@ export default (db) => {
 
 	return {
 		getShoes,
+		getShoe,
 		getShoeCatalog,
 		getItemID,
 		sellShoe,
