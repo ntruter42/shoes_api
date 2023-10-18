@@ -181,11 +181,10 @@ export default (db) => {
 		await db.none(query);
 	}
 
-	const getCart = async (user_id) => {
+	const getCart = async (cart_id) => {
 		let query = `
-		SELECT * FROM ${t.carts}
-		WHERE user_id = ${user_id}
-		AND paid = false
+		SELECT * FROM ${t.cart_items}
+		WHERE cart_id = ${cart_id}
 		`;
 
 		return await db.one(query);
