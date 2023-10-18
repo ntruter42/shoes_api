@@ -172,12 +172,62 @@ export default (db) => {
 		// ];
 	}
 
+	const createCart = async (user_id) => {
+		let query = `
+		INSERT INTO ${t.carts} (user_id)
+		VALUES (${user_id})
+		`;
+
+		await db.none(query);
+	}
+
 	const getCart = async (user_id) => {
-		let query = `SELECT * FROM ${t.carts}`;
-		query += ` WHERE user_id = ${user_id}`;
-		query += ` AND paid = false`;
+		let query = `
+		SELECT * FROM ${t.carts}
+		WHERE user_id = ${user_id}
+		AND paid = false
+		`;
 
 		return await db.one(query);
+	}
+
+	const addToCart = async (cart_id, item_id, item_count) => {
+		let query = `
+		INSERT INTO ${t.cart_items} (cart_id, item_id, item_count)
+		VALUES (${cart_id}, ${item_id}, ${item_count || 1})
+		`;
+
+		await db.none(query);
+	}
+
+	const removeFromCart = async (cart_id, item_id) => {
+		let query = `
+		DELETE FROM ${t.cart_items}
+		WHERE cart_id = ${cart_id}
+		AND item_id = ${item_id}
+		`;
+
+		await db.none(query);
+	}
+
+	const checkoutCart = async (cart_id) => {
+		let query = `
+		UPDATE ${t.carts}
+		WHERE cart_id = ${cart_id}
+		AND item_id = ${item_id}
+		`;
+
+		await db.none(query);
+	}
+
+	const clearCart = async (cart_id) => {
+		let query = `
+		DELETE FROM ${t.cart_items}
+		SET paid = true
+		WHERE cart_id = ${cart_id} AND paid = false
+		`;
+
+		await db.none(query);
 	}
 
 	return {
@@ -187,6 +237,11 @@ export default (db) => {
 		getItemID,
 		sellShoe,
 		addShoe,
-		getCart
+		createCart,
+		getCart,
+		addToCart,
+		removeFromCart,
+		checkoutCart,
+		clearCart
 	}
 }

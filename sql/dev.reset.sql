@@ -154,12 +154,12 @@ VALUES
 	(1004, 'Red', 6, 1),
 	(1004, 'Red', 7, 2),
 	(1004, 'Red', 8, 2),
-	(1004, 'G|Orange', 6, 1),
-	(1004, 'G|Orange', 8, 2),
-	(1004, 'G|Orange', 9, 1),
+	(1004, 'Green-Orange', 6, 1),
+	(1004, 'Green-Orange', 8, 2),
+	(1004, 'Green-Orange', 9, 1),
 
-	(1005, 'B|W', 7, 8),
-	(1005, 'B|W', 10, 2),
+	(1005, 'Black-White', 7, 8),
+	(1005, 'Black-White', 10, 2),
 	(1005, 'Blue', 7, 7),
 	(1005, 'Blue', 8, 2),
 	(1005, 'Blue', 9, 4),
@@ -167,21 +167,21 @@ VALUES
 	(1005, 'Red', 7, 1),
 	(1005, 'Red', 8, 3),
 
-	(1006, 'B|W', 5, 2),
-	(1006, 'B|W', 6, 5),
-	(1006, 'B|W', 8, 2),
-	(1006, 'B|W', 9, 7),
-	(1006, 'W|Blue', 5, 2),
-	(1006, 'W|Blue', 6, 6),
-	(1006, 'W|Blue', 7, 2),
-	(1006, 'W|Blue', 8, 3),
-	(1006, 'W|Yellow', 6, 7),
-	(1006, 'W|Yellow', 8, 5),
-	(1006, 'B|Red', 5, 3),
-	(1006, 'B|Red', 6, 3),
-	(1006, 'W|Red', 7, 3),
-	(1006, 'B|Red', 8, 2),
-	(1006, 'B|Red', 9, 6);
+	(1006, 'Black-White', 5, 2),
+	(1006, 'Black-White', 6, 5),
+	(1006, 'Black-White', 8, 2),
+	(1006, 'Black-White', 9, 7),
+	(1006, 'White-Blue', 5, 2),
+	(1006, 'White-Blue', 6, 6),
+	(1006, 'White-Blue', 7, 2),
+	(1006, 'White-Blue', 8, 3),
+	(1006, 'White-Yellow', 6, 7),
+	(1006, 'White-Yellow', 8, 5),
+	(1006, 'Black-Red', 5, 3),
+	(1006, 'Black-Red', 6, 3),
+	(1006, 'Black-Red', 7, 3),
+	(1006, 'Black-Red', 8, 2),
+	(1006, 'Black-Red', 9, 6);
 
 INSERT INTO shoe_catalog.photos (shoe_id, color, photo_url)
 VALUES
@@ -192,13 +192,13 @@ VALUES
 
 	(1004, 'Black', 'https://i.ibb.co/2FP1fqk/nike-gripknit-phantom-gx-blackwhite.webp'),
 	(1004, 'Red', 'https://i.ibb.co/SvrXpjQ/nike-gripknit-phantom-gx-blackred.webp'),
-	(1004, 'G|Orange', 'https://i.ibb.co/ySXrhWL/nike-gripknit-phantom-gx-orange.webp'),
+	(1004, 'Green-Orange', 'https://i.ibb.co/ySXrhWL/nike-gripknit-phantom-gx-orange.webp'),
 
-	(1005, 'B|W', 'https://i.ibb.co/D7J9f9X/nb-650-whiteblack.webp'),
+	(1005, 'Black-White', 'https://i.ibb.co/D7J9f9X/nb-650-whiteblack.webp'),
 	(1005, 'Blue', 'https://i.ibb.co/Gsy6ft1/nb-650-whiteblue.webp'),
 	(1005, 'Red', 'https://i.ibb.co/QPXyM88/nb-650-whitered.webp'),
 
-	(1006, 'B|W', 'https://i.ibb.co/4mXvtxv/nb-650v2-whiteblack.webp'),
-	(1006, 'W|Blue', 'https://i.ibb.co/yQkYycy/nb-650v2-whiteblue.webp'),
-	(1006, 'B|Red', 'https://i.ibb.co/jrYTm71/nb-650v2-blackred.webp'),
-	(1006, 'W|Yellow', 'https://i.ibb.co/W6fR92n/nb-650v2-whiteyellow.webp');
+	(1006, 'Black-White', 'https://i.ibb.co/4mXvtxv/nb-650v2-whiteblack.webp'),
+	(1006, 'White-Blue', 'https://i.ibb.co/yQkYycy/nb-650v2-whiteblue.webp'),
+	(1006, 'Black-Red', 'https://i.ibb.co/jrYTm71/nb-650v2-blackred.webp'),
+	(1006, 'White-Yellow', 'https://i.ibb.co/W6fR92n/nb-650v2-whiteyellow.webp');
