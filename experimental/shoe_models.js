@@ -25,6 +25,7 @@ const selected_shoe = {
 	]
 };
 
+// Unprocessed shoe received from database
 const backend_shoe = {
 	"shoe_id": 1002,
 	"brand": "Under Armour",
@@ -37,6 +38,7 @@ const backend_shoe = {
 	"photo_url": "https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp"
 };
 
+// Processed shoe returned to API consumer
 const processed_shoe = {
 	"shoe_id": 1002,
 	"brand": "Under Armour",
@@ -52,6 +54,7 @@ const processed_shoe = {
 
 // ==================== ENTIRE SHOE CATALOG ==================== //
 
+// Unprocessed shoe catalog received from database
 const backend_shoe_catalog = [
 	{
 		"item_id": 1001,
@@ -116,6 +119,7 @@ const backend_shoe_catalog = [
 	}
 ];
 
+// Processed shoe catalog returned to API consumer
 const processed_shoe_catalog = [
 	{
 		"shoe_id": 1000,
@@ -149,7 +153,7 @@ const processed_shoe_catalog = [
 		"model": "Micro G Valsetz",
 		"price": 2899,
 		"variants": [
-			{ "item_id": 1005, "color": "Gold", "size": 12, "stock_count": 1 },
+			{ "item_id": 1005, "color": "Gold", "size": 12, "stock_count": 1 }
 		],
 		"photos": [
 			{ "color": "Gold", "photo_url": "https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp" }
