@@ -160,3 +160,54 @@ const processed_shoe_catalog = [
 		]
 	}
 ];
+
+// Alternative shoe catalog returned to API consumer
+const alternative_processed_shoe_catalog = [
+	{
+		"shoe_id": 1000,
+		"brand": "Adidas",
+		"model": "Breaknet 2.0",
+		"price": 1099,
+		"variants": {
+			"Black": [
+				{ "item_id": 1000, "size": 6, "stock_count": 11 },
+				{ "item_id": 1001, "size": 7, "stock_count": 12 }
+			],
+			"White": [
+				{ "item_id": 1002, "size": 6, "stock_count": 5 }
+			]
+		},
+		"photos": {
+			"Black": "https://i.ibb.co/3S1WwKj/adidas-breaknet2-blackwhite.webp",
+			"White": "https://i.ibb.co/JnxgLWL/adidas-breaknet2-whitebluered.webp"
+		}
+	}, {
+		"shoe_id": 1001,
+		"brand": "Nike",
+		"model": "Air Max 90",
+		"price": 2499,
+		"variants": {
+			"Black": [
+				{ "item_id": 1003, "size": 4, "stock_count": 3 },
+				{ "item_id": 1004, "size": 5, "stock_count": 5 }
+			]
+		},
+		"photos": {
+			"Black": "https://i.ibb.co/hBkjfd7/nike-airmax90-black.webp"
+		}
+	}, {
+		"shoe_id": 1002,
+		"brand": "Under Armour",
+		"model": "Micro G Valsetz",
+		"price": 2899,
+		"variants": {
+			"Gold": [
+				{ "item_id": 1005, "size": 12, "stock_count": 1 }
+			]
+		},
+		"photos": {
+			"Gold": "https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp"
+		}
+
+	}
+];

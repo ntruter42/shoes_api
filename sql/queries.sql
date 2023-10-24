@@ -127,6 +127,8 @@ WHERE user_id = 1000
 AND checkout IS NULL;
 
 -- TODO: stock_count = stock_count - item_count
+UPDATE shoe_catalog.stock
+SET stock_count = stock_count - (SELECT item_count FROM shoe_catalog.cart_items)
 
 -- Clear current cart
 DELETE FROM shoe_catalog.cart_items

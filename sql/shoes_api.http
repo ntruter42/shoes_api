@@ -1,4 +1,4 @@
-### Shoes API
+#################### Shoes API ####################
 
 ### Get shoe catalog
 GET http://localhost:3003/api/shoes
@@ -62,23 +62,34 @@ POST http://localhost:3003/api/cart/1000/remove/1027
 
 
 
-### Add shoe to catalog
-POST http://localhost:3003/api/shoes
+
+
+#################### WORK IN PROGRESS ####################
+
+### Add shoe to catalog (returns shoe_id)
+POST http://localhost:3003/api/shoes/add
 content-type: application/json
 
 {
 	"brand": "Under Armour",
 	"model": "Micro G Valsetz",
-	"price": 2899,
-	"variants": [
-		{ "color": "Black", "size": 9, "stock_count": 16 },
-		{ "color": "Black", "size": 10, "stock_count": 2 },
-		{ "color": "Black", "size": 11, "stock_count": 1 },
-		{ "color": "Gold", "size": 9, "stock_count": 1 },
-		{ "color": "Gold", "size": 10, "stock_count": 1 }
-	],
-	"photos": [
-		{ "color": "Black", "photo_url": "https://i.ibb.co/DGNyqNw/ua-mircogvalsetz-black.webp" },
-		{ "color": "Gold", "photo_url": "https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp" }
-	]
+	"price": 2899
+}
+
+### Add shoe variant using shoe_id
+POST http://localhost:3003/api/shoes/add/1000
+content-type: application/json
+
+{
+	"color": "Black",
+	"size": 9,
+	"stock_count": 16
+}
+
+### Add shoe photo using shoe_id and color
+POST http://localhost:3003/api/shoes/add/1000/Black
+content-type: application/json
+
+{
+	"photo_url": "https://i.ibb.co/DGNyqNw/ua-mircogvalsetz-black.webp"
 }

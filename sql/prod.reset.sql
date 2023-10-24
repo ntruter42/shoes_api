@@ -136,28 +136,51 @@ VALUES
 
 INSERT INTO shoe_catalog.photos (shoe_id, color, photo_url)
 VALUES
-	(1000, 'Black', 'https://i.ibb.co/3S1WwKj/adidas-breaknet2-blackwhite.webp'),
-	(1000, 'White', 'https://i.ibb.co/JnxgLWL/adidas-breaknet2-whitebluered.webp'),
+	-- (1000, 'Black', 'https://i.ibb.co/3S1WwKj/adidas-breaknet2-blackwhite.webp'),
+	-- (1000, 'White', 'https://i.ibb.co/JnxgLWL/adidas-breaknet2-whitebluered.webp'),
 
-	(1001, 'Black', 'https://i.ibb.co/hBkjfd7/nike-airmax90-black.webp'),
+	-- (1001, 'Black', 'https://i.ibb.co/hBkjfd7/nike-airmax90-black.webp'),
 
-	(1002, 'Black', 'https://i.ibb.co/DGNyqNw/ua-mircogvalsetz-black.webp'),
-	(1002, 'Gold', 'https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp'),
+	-- (1002, 'Black', 'https://i.ibb.co/DGNyqNw/ua-mircogvalsetz-black.webp'),
+	-- (1002, 'Gold', 'https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp'),
 
-	(1003, 'Black', 'https://i.ibb.co/JKLCrCb/ua-assert9-blackwhite.webp'),
+	-- (1003, 'Black', 'https://i.ibb.co/JKLCrCb/ua-assert9-blackwhite.webp'),
 
-	(1004, 'Black', 'https://i.ibb.co/2FP1fqk/nike-gripknit-phantom-gx-blackwhite.webp'),
-	(1004, 'Red', 'https://i.ibb.co/SvrXpjQ/nike-gripknit-phantom-gx-blackred.webp'),
-	(1004, 'Green-Orange', 'https://i.ibb.co/ySXrhWL/nike-gripknit-phantom-gx-orange.webp'),
+	-- (1004, 'Black', 'https://i.ibb.co/2FP1fqk/nike-gripknit-phantom-gx-blackwhite.webp'),
+	-- (1004, 'Red', 'https://i.ibb.co/SvrXpjQ/nike-gripknit-phantom-gx-blackred.webp'),
+	-- (1004, 'Green-Orange', 'https://i.ibb.co/ySXrhWL/nike-gripknit-phantom-gx-orange.webp'),
 
-	(1005, 'Black-White', 'https://i.ibb.co/D7J9f9X/nb-650-whiteblack.webp'),
-	(1005, 'Blue', 'https://i.ibb.co/Gsy6ft1/nb-650-whiteblue.webp'),
-	(1005, 'Red', 'https://i.ibb.co/QPXyM88/nb-650-whitered.webp'),
+	-- (1005, 'Black-White', 'https://i.ibb.co/D7J9f9X/nb-650-whiteblack.webp'),
+	-- (1005, 'Blue', 'https://i.ibb.co/Gsy6ft1/nb-650-whiteblue.webp'),
+	-- (1005, 'Red', 'https://i.ibb.co/QPXyM88/nb-650-whitered.webp'),
 
-	(1006, 'Black-White', 'https://i.ibb.co/4mXvtxv/nb-650v2-whiteblack.webp'),
-	(1006, 'White-Blue', 'https://i.ibb.co/yQkYycy/nb-650v2-whiteblue.webp'),
-	(1006, 'Black-Red', 'https://i.ibb.co/jrYTm71/nb-650v2-blackred.webp'),
-	(1006, 'White-Yellow', 'https://i.ibb.co/W6fR92n/nb-650v2-whiteyellow.webp');
+	-- (1006, 'Black-White', 'https://i.ibb.co/4mXvtxv/nb-650v2-whiteblack.webp'),
+	-- (1006, 'White-Blue', 'https://i.ibb.co/yQkYycy/nb-650v2-whiteblue.webp'),
+	-- (1006, 'Black-Red', 'https://i.ibb.co/jrYTm71/nb-650v2-blackred.webp'),
+	-- (1006, 'White-Yellow', 'https://i.ibb.co/W6fR92n/nb-650v2-whiteyellow.webp');
+
+	(1000, 'Black', '/assets/images/shoes/adidas-breaknet2-blackwhite.png'),
+	(1000, 'White', '/assets/images/shoes/adidas-breaknet2-whitebluered.png'),
+
+	(1001, 'Black', '/assets/images/shoes/nike-airmax90-black.png'),
+
+	(1002, 'Black', '/assets/images/shoes/ua-mircogvalsetz-black.png'),
+	(1002, 'Gold', '/assets/images/shoes/ua-mircogvalsetz-gold.png'),
+
+	(1003, 'Black', '/assets/images/shoes/ua-assert9-blackwhite.png'),
+
+	(1004, 'Black', '/assets/images/shoes/nike-gripknit-phantom-gx-blackwhite.png'),
+	(1004, 'Red', '/assets/images/shoes/nike-gripknit-phantom-gx-blackred.png'),
+	(1004, 'Green-Orange', '/assets/images/shoes/nike-gripknit-phantom-gx-orange.png'),
+
+	(1005, 'Black-White', '/assets/images/shoes/nb-650-whiteblack.png'),
+	(1005, 'Blue', '/assets/images/shoes/nb-650-whiteblue.png'),
+	(1005, 'Red', '/assets/images/shoes/nb-650-whitered.png'),
+
+	(1006, 'Black-White', '/assets/images/shoes/nb-650v2-whiteblack.png'),
+	(1006, 'White-Blue', '/assets/images/shoes/nb-650v2-whiteblue.png'),
+	(1006, 'Black-Red', '/assets/images/shoes/nb-650v2-blackred.png'),
+	(1006, 'White-Yellow', '/assets/images/shoes/nb-650v2-whiteyellow.png');
 
 
 INSERT INTO shoe_catalog.users (username, full_name, password) VALUES ('ntruter42', 'Nicholas Truter', '$2b$10$cxK.emL.AHc7XzMf5fVaTe5gFjNblOowr71YC.qFN4UJvZ902VKzG');

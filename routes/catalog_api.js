@@ -1,5 +1,5 @@
-import { Router, response } from "express";
-import { services } from "../index.js";
+import { Router } from "express";
+import { services, catalog } from "../index.js";
 
 const shoes_api = Router();
 const carts_api = Router();
@@ -21,30 +21,61 @@ shoes_api.get('/', async (req, res) => {
 		const shoes = await services.getShoes(filters);
 		const processed_shoes = [];
 		shoes.forEach((shoe) => {
-			const variant = { item_id: shoe.item_id, color: shoe.color, size: shoe.size, stock_count: shoe.stock_count };
-			const photo = { color: shoe.color, photo_url: shoe.photo_url };
+			const existing_shoe = processed_shoes.find(p_shoe => p_shoe.shoe_id === shoe.shoe_id);
+			const variant = { "item_id": shoe.item_id, "size": shoe.size, "stock_count": shoe.stock_count };
 
-			if (!processed_shoes.some(p_shoe => p_shoe.shoe_id === shoe.shoe_id)) {
-				processed_shoes.push({
-					shoe_id: shoe.shoe_id,
-					brand: shoe.brand,
-					model: shoe.model,
-					price: shoe.price,
-					variants: [variant],
-					photos: [photo]
-				});
+			if (!existing_shoe) {
+				const new_shoe = {
+					"shoe_id": shoe.shoe_id,
+					"brand": shoe.brand,
+					"model": shoe.model,
+					"price": shoe.price,
+					"variants": {},
+					"photos": {}
+				}
+				processed_shoes.push(new_shoe);
 			} else {
-				const update_shoe = processed_shoes.find(p_shoe => p_shoe.shoe_id === shoe.shoe_id);
-				update_shoe.variants.push(variant);
+				if (!existing_shoe.variants[shoe.color]) {
+					existing_shoe.variants[shoe.color] = [variant];
+				} else {
+					existing_shoe.variants[shoe.color].push(variant);
+				}
 
-				if (!update_shoe.photos.some(photo => photo.color === shoe.color)) {
-					update_shoe.photos.push(photo);
+				if (!existing_shoe.photos[shoe.color]) {
+					existing_shoe.photos[shoe.color] = shoe.photo_url;
 				}
 			}
 		});
-		res.status(200).send(processed_shoes);
+		res.json({
+			status: "Success",
+			shoes: processed_shoes
+		});
+
+		// if ( errorConditionIsMet ) { throw new Error("Error message, blah blah!") };
 	} catch (error) {
-		res.status(500).send(error);
+		res.json({
+			status: "Error",
+			error: error.message
+		});
+	}
+});
+
+shoes_api.get('/item_id/:shoe_id/:color/:size', async (req, res) => {
+	try {
+		const shoe_id = req.params.shoe_id;
+		const color = req.params.color;
+		const size = req.params.size;
+
+		const item_id = await services.getVariantID(shoe_id, color, size);
+		res.json({
+			status: "Success",
+			item_id
+		});
+	} catch (error) {
+		res.json({
+			status: "Error",
+			error: error.message
+		});
 	}
 });
 
@@ -52,9 +83,9 @@ shoes_api.get('/brand/:brandname', async (req, res) => {
 	try {
 		const filters = { brand: req.params.brandname };
 		const shoes = await services.getShoes(filters);
-		res.status(200).send(shoes);
+		res.status(200).json(shoes);
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).json(error);
 	}
 });
 
@@ -62,9 +93,9 @@ shoes_api.get('/size/:size', async (req, res) => {
 	try {
 		const filters = { size: req.params.size };
 		const shoes = await services.getShoes(filters);
-		res.status(200).send(shoes);
+		res.status(200).json(shoes);
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).json(error);
 	}
 });
 
@@ -72,9 +103,9 @@ shoes_api.get('/brand/:brandname/size/:size', async (req, res) => {
 	try {
 		const filters = { brand: req.params.brandname, size: req.params.size };
 		const shoes = await services.getShoes(filters);
-		res.status(200).send(shoes);
+		res.status(200).json(shoes);
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).json(error);
 	}
 });
 
@@ -84,9 +115,9 @@ shoes_api.post('/', async (req, res) => {
 	try {
 		const shoe = req.body;
 		await services.addShoe(shoe);
-		res.status(200).send("Success");
+		res.status(200).json("Success");
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).json(error);
 	}
 });
 
@@ -96,9 +127,9 @@ shoes_api.post('/sold/:id', async (req, res) => {
 	try {
 		const item_id = req.params.id;
 		await services.sellShoe(item_id)
-		res.status(200).send("Success");
+		res.status(200).json("Success");
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).json(error);
 	}
 });
 
@@ -111,9 +142,9 @@ carts_api.get('/:user_id', async (req, res) => {
 		if (cart.length <= 1) {
 			throw new Error();
 		}
-		res.status(200).send(cart);
+		res.status(200).json(cart);
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).json(error);
 	}
 });
 
@@ -124,9 +155,9 @@ carts_api.post('/:user_id/add/:item_id', async (req, res) => {
 		const item_id = req.params.item_id;
 		const item_count = req.query.item_count || 1;
 		await services.addToCart(user_id, item_id, item_count);
-		res.status(200).send("Success");
+		res.status(200).json("Success");
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).json(error);
 	}
 });
 
@@ -135,9 +166,9 @@ carts_api.post('/:user_id/remove/:item_id', async (req, res) => {
 		const user_id = req.params.user_id;
 		const item_id = req.params.item_id;
 		await services.removeFromCart(user_id, item_id);
-		res.status(200).send("Success");
+		res.status(200).json("Success");
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).json(error);
 	}
 });
 
@@ -145,9 +176,9 @@ carts_api.post('/:user_id/checkout', async (req, res) => {
 	try {
 		const user_id = req.params.user_id;
 		await services.checkoutCart(user_id);
-		res.status(200).send("Checkout successful");
+		res.status(200).json("Checkout successful");
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).json(error);
 	}
 });
 
@@ -155,9 +186,9 @@ carts_api.post('/:user_id/clear', async (req, res) => {
 	try {
 		const user_id = req.params.user_id;
 		await services.clearCart(user_id);
-		res.status(200).send("Cart cleared");
+		res.status(200).json("Cart cleared");
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).json(error);
 	}
 });
 
