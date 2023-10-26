@@ -171,7 +171,7 @@ VALUES
 
 	(1004, 'Black', '/assets/images/shoes/nike-gripknit-phantom-gx-blackwhite.png'),
 	(1004, 'Red', '/assets/images/shoes/nike-gripknit-phantom-gx-blackred.png'),
-	(1004, 'Green-Orange', '/assets/images/shoes/nike-gripknit-phantom-gx-orange.png'),
+	(1004, 'Green-Orange', '/assets/images/shoes/nike-gripknit-phantom-gx-greenorange.png'),
 
 	(1005, 'Black-White', '/assets/images/shoes/nb-650-whiteblack.png'),
 	(1005, 'Blue', '/assets/images/shoes/nb-650-whiteblue.png'),

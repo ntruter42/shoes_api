@@ -38,6 +38,12 @@ GET http://localhost:3003/api/shoes?color=White&brand=Adidas&size=9
 GET http://localhost:3003/api/shoes?size=9&color=Black&brand=Under Armour&model=Micro G Valsetz
 
 
+#################### Functionality ####################
+
+GET http://localhost:3003/api/shoes/item_id/1002/Gold/11
+
+
+#################### Carts API ####################
 
 ### Get cart for user
 GET http://localhost:3003/api/cart/1000

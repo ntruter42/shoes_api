@@ -33,20 +33,21 @@ export default (db) => {
 			}
 		}
 
-		return await db.manyOrNone(query);
+		const shoes = await db.manyOrNone(query)
+		return shoes;
 	}
 
-	const getVariantID = async (shoe_id, color, size) => {
+	const getItemID = async (shoe_id, color, size) => {
 		let query = `
-		SELECT item_id FROM ${t.stock}
-		JOIN ${t.stock} ON ${t.stock}.shoe_id = ${t.shoes}.shoe_id
+		SELECT item_id FROM ${t.stock} st
 		WHERE stock_count > 0
-		AND ${shoe_id} = ${t.stock}.shoe_id
-		AND ${color} = color
-		AND ${size} = size
+		AND st.shoe_id = ${shoe_id}
+		AND color = '${color}'
+		AND size = ${size}
 		`;
 
-		return (await db.one(query)).item_id;
+		const item_id = (await db.one(query)).item_id;
+		return item_id;
 	}
 
 	const sellShoe = async (item_id) => {
@@ -215,7 +216,7 @@ export default (db) => {
 	return {
 		getShoes,
 		getShoe: getShoes,
-		getVariantID,
+		getItemID,
 		sellShoe,
 		addShoe,
 		createCart,

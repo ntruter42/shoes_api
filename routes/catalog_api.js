@@ -19,33 +19,8 @@ shoes_api.get('/', async (req, res) => {
 		if (req.query.size) { filters.size = Number(req.query.size) }
 
 		const shoes = await services.getShoes(filters);
-		const processed_shoes = [];
-		shoes.forEach((shoe) => {
-			const existing_shoe = processed_shoes.find(p_shoe => p_shoe.shoe_id === shoe.shoe_id);
-			const variant = { "item_id": shoe.item_id, "size": shoe.size, "stock_count": shoe.stock_count };
+		const processed_shoes = catalog.formatShoeData(shoes);
 
-			if (!existing_shoe) {
-				const new_shoe = {
-					"shoe_id": shoe.shoe_id,
-					"brand": shoe.brand,
-					"model": shoe.model,
-					"price": shoe.price,
-					"variants": {},
-					"photos": {}
-				}
-				processed_shoes.push(new_shoe);
-			} else {
-				if (!existing_shoe.variants[shoe.color]) {
-					existing_shoe.variants[shoe.color] = [variant];
-				} else {
-					existing_shoe.variants[shoe.color].push(variant);
-				}
-
-				if (!existing_shoe.photos[shoe.color]) {
-					existing_shoe.photos[shoe.color] = shoe.photo_url;
-				}
-			}
-		});
 		res.json({
 			status: "Success",
 			shoes: processed_shoes
@@ -66,7 +41,7 @@ shoes_api.get('/item_id/:shoe_id/:color/:size', async (req, res) => {
 		const color = req.params.color;
 		const size = req.params.size;
 
-		const item_id = await services.getVariantID(shoe_id, color, size);
+		const item_id = await services.getItemID(shoe_id, color, size);
 		res.json({
 			status: "Success",
 			item_id
