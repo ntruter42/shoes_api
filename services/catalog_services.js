@@ -1,5 +1,5 @@
 export default () => {
-	const processShoes = (shoes) => {
+	const formatShoeData = (shoes) => {
 		const processed_shoes = [];
 
 		shoes.forEach((shoe) => {
@@ -33,6 +33,6 @@ export default () => {
 	}
 
 	return {
-		processShoes
+		formatShoeData
 	}
 }
