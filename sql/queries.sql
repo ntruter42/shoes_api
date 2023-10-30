@@ -38,6 +38,11 @@ AND st.size = 8
 -- Optional frontend filters END here
 ORDER BY brand, model, st.color, st.size;
 
+-- Select brands
+SELECT brand
+FROM shoe_catalog.shoes
+GROUP BY brand;
+
 -- Select colors
 SELECT color
 FROM shoe_catalog.stock

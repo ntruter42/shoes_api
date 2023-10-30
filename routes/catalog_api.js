@@ -54,35 +54,49 @@ shoes_api.get('/item_id/:shoe_id/:color/:size', async (req, res) => {
 	}
 });
 
-shoes_api.get('/brand/:brandname', async (req, res) => {
+shoes_api.get('/filters', async (req, res) => {
 	try {
-		const filters = { brand: req.params.brandname };
-		const shoes = await services.getShoes(filters);
-		res.status(200).json(shoes);
+		const shoes = await services.getShoes({});
+		const filters = catalog.getFilters(shoes);
+
+		res.json({
+			status: "Success",
+			filters
+		});
 	} catch (error) {
 		res.status(500).json(error);
 	}
 });
 
-shoes_api.get('/size/:size', async (req, res) => {
-	try {
-		const filters = { size: req.params.size };
-		const shoes = await services.getShoes(filters);
-		res.status(200).json(shoes);
-	} catch (error) {
-		res.status(500).json(error);
-	}
-});
+// shoes_api.get('/brand/:brandname', async (req, res) => {
+// 	try {
+// 		const filters = { brand: req.params.brandname };
+// 		const shoes = await services.getShoes(filters);
+// 		res.status(200).json(shoes);
+// 	} catch (error) {
+// 		res.status(500).json(error);
+// 	}
+// });
 
-shoes_api.get('/brand/:brandname/size/:size', async (req, res) => {
-	try {
-		const filters = { brand: req.params.brandname, size: req.params.size };
-		const shoes = await services.getShoes(filters);
-		res.status(200).json(shoes);
-	} catch (error) {
-		res.status(500).json(error);
-	}
-});
+// shoes_api.get('/size/:size', async (req, res) => {
+// 	try {
+// 		const filters = { size: req.params.size };
+// 		const shoes = await services.getShoes(filters);
+// 		res.status(200).json(shoes);
+// 	} catch (error) {
+// 		res.status(500).json(error);
+// 	}
+// });
+
+// shoes_api.get('/brand/:brandname/size/:size', async (req, res) => {
+// 	try {
+// 		const filters = { brand: req.params.brandname, size: req.params.size };
+// 		const shoes = await services.getShoes(filters);
+// 		res.status(200).json(shoes);
+// 	} catch (error) {
+// 		res.status(500).json(error);
+// 	}
+// });
 
 // ==================== ADD SHOE ROUTES ==================== //
 

@@ -32,7 +32,36 @@ export default () => {
 		return processed_shoes;
 	}
 
+	const getFilters = (shoes) => {
+		const filters = {
+			brands: [],
+			colors: [],
+			sizes: []
+		};
+
+		shoes.forEach(shoe => {
+			if (!filters.brands.includes(shoe.brand)) {
+				filters.brands.push(shoe.brand);
+			}
+			if (!filters.colors.includes(shoe.color)) {
+				filters.colors.push(shoe.color);
+			}
+			if (!filters.sizes.includes(shoe.size)) {
+				filters.sizes.push(shoe.size);
+			}
+		});
+
+		for (const key in filters) {
+			typeof filters[key][0] === "number"
+				? filters[key].sort((a, b) => a - b)
+				: filters[key].sort();
+		}
+
+		return filters;
+	}
+
 	return {
-		formatShoeData
+		formatShoeData,
+		getFilters
 	}
 }

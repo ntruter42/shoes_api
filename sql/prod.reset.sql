@@ -11,6 +11,7 @@ CREATE TABLE shoe_catalog.shoes (
     model VARCHAR(255) NOT NULL,
     price INT NOT NULL,
 	sold INT NOT NULL DEFAULT 0,
+	liked BOOLEAN DEFAULT false,
 	CONSTRAINT shoe_name UNIQUE (brand, model)
 );
 

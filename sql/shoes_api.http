@@ -40,8 +40,11 @@ GET http://localhost:3003/api/shoes?size=9&color=Black&brand=Under Armour&model=
 
 #################### Functionality ####################
 
+### Get item_id by shoe_id, color and size
 GET http://localhost:3003/api/shoes/item_id/1002/Gold/11
 
+### Get filters from shoe catalog
+GET http://localhost:3003/api/shoes/filters
 
 #################### Carts API ####################
 
