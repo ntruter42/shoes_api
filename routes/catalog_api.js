@@ -9,20 +9,22 @@ const carts_api = Router();
 // Get shoe catalog data (filtered if queries are provided)
 shoes_api.get('/', async (req, res) => {
 	try {
-		const filters = {};
-		if (req.query.shoe_id) { filters.shoe_id = Number(req.query.shoe_id) }
-		if (req.query.item_id) { filters.item_id = Number(req.query.item_id) }
-		if (req.query.brand) { filters.brand = req.query.brand }
-		if (req.query.model) { filters.model = req.query.model }
-		if (req.query.price) { filters.price = req.query.price.split('-').map(Number) }
-		if (req.query.color) { filters.color = req.query.color }
-		if (req.query.size) { filters.size = Number(req.query.size) }
+		const selected_filters = {};
+		if (req.query.shoe_id) { selected_filters.shoe_id = Number(req.query.shoe_id) }
+		if (req.query.item_id) { selected_filters.item_id = Number(req.query.item_id) }
+		if (req.query.brand) { selected_filters.brand = req.query.brand }
+		if (req.query.model) { selected_filters.model = req.query.model }
+		if (req.query.price) { selected_filters.price = req.query.price.split('-').map(Number) }
+		if (req.query.color) { selected_filters.color = req.query.color }
+		if (req.query.size) { selected_filters.size = Number(req.query.size) }
 
-		const shoes = await services.getShoes(filters);
+		const shoes = await services.getShoes(selected_filters);
+		const filters = catalog.getFilters(shoes);
 		const processed_shoes = catalog.formatShoeData(shoes);
 
 		res.json({
 			status: "Success",
+			filters,
 			shoes: processed_shoes
 		});
 

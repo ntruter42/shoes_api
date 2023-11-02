@@ -33,7 +33,7 @@ export default (db) => {
 			}
 		}
 
-		const shoes = await db.manyOrNone(query)
+		const shoes = await db.manyOrNone(query);
 		return shoes;
 	}
 

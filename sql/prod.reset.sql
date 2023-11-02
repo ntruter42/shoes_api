@@ -9,8 +9,10 @@ CREATE TABLE shoe_catalog.shoes (
     shoe_id SERIAL PRIMARY KEY,
     brand VARCHAR(255) NOT NULL,
     model VARCHAR(255) NOT NULL,
+	type VARCHAR(255) NOT NULL,
+	-- gender VARCHAR(6) NOT NULL,
     price INT NOT NULL,
-	sold INT NOT NULL DEFAULT 0,
+	sold INT DEFAULT 0,
 	liked BOOLEAN DEFAULT false,
 	CONSTRAINT shoe_name UNIQUE (brand, model)
 );
@@ -57,175 +59,296 @@ ALTER SEQUENCE shoe_catalog.stock_item_id_seq RESTART WITH 1000;
 ALTER SEQUENCE shoe_catalog.carts_cart_id_seq RESTART WITH 1000;
 ALTER SEQUENCE shoe_catalog.users_user_id_seq RESTART WITH 1000;
 
-INSERT INTO shoe_catalog.shoes (brand, model, price)
+INSERT INTO shoe_catalog.shoes (brand, model, type, price)
 VALUES
-	('Adidas', 'Breaknet 2.0', 1099),
-	('Nike', 'Air Max 90', 2499),
-	('Under Armour', 'Micro G Valsetz', 2899),
-	('Under Armour', 'Assert 9', 999),
-	('Nike', 'Gripknit Phantom GX', 5799),
-	('New Balance', '650', 2899),
-	('New Balance', '650 v2', 2799);
-
-
+	('Under Armour', 'Project Rock 3', 'Slides', 1399),
+	('Under Armour', 'Surge 3', 'Running Shoes', 1299),
+	('Under Armour', 'Micro G Valsetz Mid', 'Utility Boots', 2999),
+	('Under Armour', 'Micro G Valsetz', 'Utility Boots', 3499),
+	('Nike', 'Air Force 1 ''07', 'Sneakers', 2199),
+	('Nike', 'Gripknit Phantom GX Elite', 'Soccer Boots', 5799),
+	('Nike', 'Air Jordan 1 Retro High OG', 'Sneakers', 3499),
+	('Nike', 'Air Jordan 1 Hi FlyEase', 'Sneakers', 3399),
+	('Adidas', 'Originals x Moncler NMD Mid', 'Designer Boots', 13999),
+	('Adidas', 'Breaknet 2.0', 'Sneakers', 1199),
+	('New Balance', 'FuelCell Summit Unknown v4', 'Running Shoes', 2599),
+	('New Balance', '650', 'Sneakers', 2799),
+;
 
 INSERT INTO shoe_catalog.stock (shoe_id, color, size, stock_count)
 VALUES
-	(1000, 'Black', 6, 11),
-	(1000, 'Black', 7, 12),
-	(1000, 'Black', 8, 9),
-	(1000, 'White', 6, 5),
-	(1000, 'White', 7, 11),
-	(1000, 'White', 8, 4),
-	(1000, 'White', 9, 2),
+	-- Under Armour Project Rock 3 Slides
+	(1000, 'Black', 7, 10),
+	(1000, 'Black', 8, 10),
+	(1000, 'Black', 9, 10),
+	(1000, 'Black', 10, 10),
+	(1000, 'Black', 11, 10),
 
-	(1001, 'Black', 4, 3),
-	(1001, 'Black', 5, 5),
-	(1001, 'Black', 6, 4),
-	(1001, 'Black', 7, 7),
-	(1001, 'Black', 8, 5),
-	(1001, 'Black', 9, 2),
-	(1001, 'Black', 10, 4),
-	(1001, 'Black', 11, 2),
+	(1000, 'White', 6, 10),
+	(1000, 'White', 7, 10),
+	(1000, 'White', 8, 10),
+	(1000, 'White', 9, 10),
+	(1000, 'White', 10, 10),
+	(1000, 'White', 11, 10),
+	(1000, 'White', 12, 10),
 
-	(1002, 'Black', 9, 2),
-	(1002, 'Black', 10, 3),
-	(1002, 'Black', 11, 1),
-	(1002, 'Gold', 9, 2),
-	(1002, 'Gold', 11, 1),
+	-- Under Armour Surge 3 Running Shoes
+	(1001, 'White', 6, 10),
+	(1001, 'White', 7, 10),
+	(1001, 'White', 8, 10),
+	(1001, 'White', 9, 10),
 
-	(1003, 'Black', 6, 13),
-	(1003, 'Black', 7, 9),
-	(1003, 'Black', 8, 7),
+	(1001, 'Grey+White', 6, 10),
+	(1001, 'Grey+White', 7, 10),
+	(1001, 'Grey+White', 8, 10),
+	(1001, 'Grey+White', 9, 10),
+	(1001, 'Grey+White', 10, 10),
+
+	(1001, 'Blue+White', 8, 10),
+	(1001, 'Blue+White', 9, 10),
+	(1001, 'Blue+White', 10, 10),
+	(1001, 'Blue+White', 11, 10),
+	(1001, 'Blue+White', 12, 10),
+
+	(1001, 'Grey+Lime+Slate', 7, 10),
+	(1001, 'Grey+Lime+Slate', 8, 10),
+	(1001, 'Grey+Lime+Slate', 9, 10),
+	(1001, 'Grey+Lime+Slate', 10, 10),
+	
+	-- Under Armour Micro G Valsetz Mid Utility Boots
+	(1002, 'Black', 8, 10),
+	(1002, 'Black', 9, 10),
+	(1002, 'Black', 10, 10),
+	(1002, 'Black', 11, 10),
+	(1002, 'Black', 12, 10),
+
+	(1002, 'Gold', 9, 10),
+	(1002, 'Gold', 10, 10),
+	(1002, 'Gold', 11, 10),
+
+	-- Under Armour Micro G Valsetz Utility Boots
+	(1003, 'Black', 8, 10),
 	(1003, 'Black', 9, 10),
+	(1003, 'Black', 10, 10),
+	(1003, 'Black', 11, 10),
+	(1003, 'Black', 12, 10),
 
-	(1004, 'Black', 6, 1),
-	(1004, 'Black', 7, 1),
-	(1004, 'Black', 8, 1),
-	(1004, 'Black', 9, 2),
-	(1004, 'Red', 6, 1),
-	(1004, 'Red', 7, 2),
-	(1004, 'Red', 8, 2),
-	(1004, 'Green-Orange', 6, 1),
-	(1004, 'Green-Orange', 8, 2),
-	(1004, 'Green-Orange', 9, 1),
+	-- Nike Air Force 1 '07 Sneakers
+	(1004, 'Black', 6, 10),
+	(1004, 'Black', 7, 10),
+	(1004, 'Black', 8, 10),
+	(1004, 'Black', 9, 10),
+	(1004, 'Black', 10, 10),
 
-	(1005, 'Black-White', 7, 8),
-	(1005, 'Black-White', 10, 2),
-	(1005, 'Blue', 7, 7),
-	(1005, 'Blue', 8, 2),
-	(1005, 'Blue', 9, 4),
-	(1005, 'Blue', 10, 2),
-	(1005, 'Red', 7, 1),
-	(1005, 'Red', 8, 3),
+	(1004, 'White', 6, 10),
+	(1004, 'White', 7, 10),
+	(1004, 'White', 8, 10),
+	(1004, 'White', 9, 10),
+	(1004, 'White', 10, 10),
 
-	(1006, 'Black-White', 5, 2),
-	(1006, 'Black-White', 6, 5),
-	(1006, 'Black-White', 8, 2),
-	(1006, 'Black-White', 9, 7),
-	(1006, 'White-Blue', 5, 2),
-	(1006, 'White-Blue', 6, 6),
-	(1006, 'White-Blue', 7, 2),
-	(1006, 'White-Blue', 8, 3),
-	(1006, 'White-Yellow', 6, 7),
-	(1006, 'White-Yellow', 8, 5),
-	(1006, 'Black-Red', 5, 3),
-	(1006, 'Black-Red', 6, 3),
-	(1006, 'Black-Red', 7, 3),
-	(1006, 'Black-Red', 8, 2),
-	(1006, 'Black-Red', 9, 6);
+	-- Nike Gripknit Phantom GX Elite Soccer Boots
+	(1005, 'Black+White+Grey', 7, 10),
+	(1005, 'Black+White+Grey', 8, 10),
+	(1005, 'Black+White+Grey', 9, 10),
+	(1005, 'Black+White+Grey', 11, 10),
+
+	(1005, 'Black+Red+Grey', 5, 10),
+	(1005, 'Black+Red+Grey', 6, 10),
+	(1005, 'Black+Red+Grey', 7, 10),
+	(1005, 'Black+Red+Grey', 8, 10),
+	(1005, 'Black+Red+Grey', 9, 10),
+	(1005, 'Black+Red+Grey', 10, 10),
+	(1005, 'Black+Red+Grey', 11, 10),
+	(1005, 'Black+Red+Grey', 12, 10),
+
+	(1005, 'Green+Orange+Lime', 6, 10),
+	(1005, 'Green+Orange+Lime', 7, 10),
+	(1005, 'Green+Orange+Lime', 8, 10),
+	(1005, 'Green+Orange+Lime', 9, 10),
+	(1005, 'Green+Orange+Lime', 10, 10),
+	(1005, 'Green+Orange+Lime', 11, 10),
+
+	-- Nike Air Jordan 1 Retro High OG Sneakers
+	(1006, 'Black+Brown', 6, 10),
+	(1006, 'Black+Brown', 7, 10),
+	(1006, 'Black+Brown', 8, 10),
+
+	(1006, 'Grey+White', 6, 10),
+	(1006, 'Grey+White', 7, 10),
+	(1006, 'Grey+White', 8, 10),
+	(1006, 'Grey+White', 9, 10),
+
+	(1006, 'Grey+White+Black', 6, 10),
+	(1006, 'Grey+White+Black', 7, 10),
+	(1006, 'Grey+White+Black', 8, 10),
+	(1006, 'Grey+White+Black', 9, 10),
+	(1006, 'Grey+White+Black', 11, 10),
+
+	(1006, 'Brown+White', 7, 10),
+	(1006, 'Brown+White', 8, 10),
+	(1006, 'Brown+White', 9, 10),
+	(1006, 'Brown+White', 10, 10),
+
+	-- Nike Air Jordan 1 Hi FlyEase Sneakers
+	(1007, 'Black+Purple+White', 6, 10),
+	(1007, 'Black+Purple+White', 7, 10),
+	(1007, 'Black+Purple+White', 8, 10),
+	(1007, 'Black+Purple+White', 9, 10),
+	(1007, 'Black+Purple+White', 10, 10),
+
+	-- Adidas Originals x Moncler NMD Mid Designer Shoes
+	(1008, 'Black', 8, 10),
+	(1008, 'Black', 10, 10),
+
+	(1008, 'White', 7, 10),
+	(1008, 'White', 8, 10),
+	(1008, 'White', 9, 10),
+	(1008, 'White', 10, 10),
+
+	(1008, 'Blue+White', 7, 10),
+	(1008, 'Blue+White', 8, 10),
+	(1008, 'Blue+White', 9, 10),
+	(1008, 'Blue+White', 10, 10),
+
+	-- Adidas Breaknet 2.0 Sneakers
+	(1009, 'Black+White', 6, 10),
+	(1009, 'Black+White', 7, 10),
+	(1009, 'Black+White', 8, 10),
+	(1009, 'Black+White', 9, 10),
+	(1009, 'Black+White', 10, 10),
+	(1009, 'Black+White', 11, 10),
+	(1009, 'Black+White', 12, 10),
+
+	(1009, 'White+Black', 6, 10),
+	(1009, 'White+Black', 8, 10),
+
+	(1009, 'White+Blue+Red', 6, 10),
+	(1009, 'White+Blue+Red', 7, 10),
+	(1009, 'White+Blue+Red', 9, 10),
+	(1009, 'White+Blue+Red', 10, 10),
+	
+	-- New Balance FuelCell Summit Unknown v4 Running Shoes
+	(1010, 'Yellow+Violet', 8, 10),
+	(1010, 'Yellow+Violet', 9, 10),
+	(1010, 'Yellow+Violet', 10, 10),
+	(1010, 'Yellow+Violet', 11, 10),
+	(1010, 'Yellow+Violet', 12, 10),
+
+	(1010, 'Blue', 6, 10),
+	(1010, 'Blue', 7, 10),
+	(1010, 'Blue', 8, 10),
+	(1010, 'Blue', 9, 10),
+	(1010, 'Blue', 10, 10),
+	(1010, 'Blue', 11, 10),
+	(1010, 'Blue', 12, 10),
+
+	-- New Balance 650 Sneakers
+	(1011, 'White+Black', 6, 10),
+	(1011, 'White+Black', 7, 10),
+	(1011, 'White+Black', 8, 10),
+	(1011, 'White+Black', 9, 10),
+	(1011, 'White+Black', 10, 10),
+	(1011, 'White+Black', 11, 10),
+
+	(1011, 'White', 7, 10),
+	(1011, 'White', 8, 10),
+	(1011, 'White', 9, 10),
+
+	(1011, 'White+Blue', 6, 10),
+	(1011, 'White+Blue', 7, 10),
+	(1011, 'White+Blue', 8, 10),
+	(1011, 'White+Blue', 9, 10),
+	(1011, 'White+Blue', 10, 10),
+
+	(1011, 'White+Green', 9, 10),
+	(1011, 'White+Green', 11, 10),
+	(1011, 'White+Green', 12, 10),
+
+	(1011, 'White+Purple', 6, 10),
+	(1011, 'White+Purple', 7, 10),
+	(1011, 'White+Purple', 9, 10),
+	(1011, 'White+Purple', 10, 10),
+
+	(1011, 'White+Red', 6, 10),
+	(1011, 'White+Red', 7, 10),
+	(1011, 'White+Red', 8, 10),
+	(1011, 'White+Red', 9, 10),
+	(1011, 'White+Red', 10, 10),
+	(1011, 'White+Red', 11, 10),
+
+	(1011, 'White+Yellow', 7, 10),
+	(1011, 'White+Yellow', 9, 10),
+
+	(1011, 'Black+Red', 6, 10),
+	(1011, 'Black+Red', 7, 10),
+	(1011, 'Black+Red', 8, 10),
+	(1011, 'Black+Red', 9, 10),
+	(1011, 'Black+Red', 10, 10),
+	(1011, 'Black+Red', 11, 10),
+;
 
 INSERT INTO shoe_catalog.photos (shoe_id, color, photo_url)
 VALUES
-	-- (1000, 'Black', 'https://i.ibb.co/3S1WwKj/adidas-breaknet2-blackwhite.webp'),
-	-- (1000, 'White', 'https://i.ibb.co/JnxgLWL/adidas-breaknet2-whitebluered.webp'),
+	(1000, 'Black', '/assets/images/shoes/under+armour-project+rock+3-black.png'),
+	(1000, 'White', '/assets/images/shoes/under+armour-project+rock+3-white.png'),
 
-	-- (1001, 'Black', 'https://i.ibb.co/hBkjfd7/nike-airmax90-black.webp'),
+	(1001, 'White', '/assets/images/shoes/under+armour-surge+3-white.png'),
+	(1001, 'Grey+White', '/assets/images/shoes/under+armour-surge+3-grey+white.png'),
+	(1001, 'Blue+White', '/assets/images/shoes/under+armour-surge+3-blue+white.png'),
+	(1001, 'Grey+Lime+Slate', '/assets/images/shoes/under+armour-surge+3-grey+lime+slate.png'),
 
-	-- (1002, 'Black', 'https://i.ibb.co/DGNyqNw/ua-mircogvalsetz-black.webp'),
-	-- (1002, 'Gold', 'https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp'),
+	(1002, 'Black', '/assets/images/shoes/under+armour-micro+g+valsetz+mid-black.png'),
+	(1002, 'Gold', '/assets/images/shoes/under+armour-micro+g+valsetz+mid-gold.png'),
 
-	-- (1003, 'Black', 'https://i.ibb.co/JKLCrCb/ua-assert9-blackwhite.webp'),
+	(1003, 'Black', '/assets/images/shoes/under+armour-micro+g+valsetz-black.png'),
 
-	-- (1004, 'Black', 'https://i.ibb.co/2FP1fqk/nike-gripknit-phantom-gx-blackwhite.webp'),
-	-- (1004, 'Red', 'https://i.ibb.co/SvrXpjQ/nike-gripknit-phantom-gx-blackred.webp'),
-	-- (1004, 'Green-Orange', 'https://i.ibb.co/ySXrhWL/nike-gripknit-phantom-gx-orange.webp'),
+	(1004, 'Black', '/assets/images/shoes/nike-air+force+1+''07-black.png'),
+	(1004, 'White', '/assets/images/shoes/nike-air+force+1+''07-white.png'),
 
-	-- (1005, 'Black-White', 'https://i.ibb.co/D7J9f9X/nb-650-whiteblack.webp'),
-	-- (1005, 'Blue', 'https://i.ibb.co/Gsy6ft1/nb-650-whiteblue.webp'),
-	-- (1005, 'Red', 'https://i.ibb.co/QPXyM88/nb-650-whitered.webp'),
+	(1005, 'Black+White+Grey', '/assets/images/shoes/nike-gripknit+phantom+gx+elite-black+white+grey.png'),
+	(1005, 'Black+Red+Grey', '/assets/images/shoes/nike-gripknit+phantom+gx+elite-black+red+grey.png'),
+	(1005, 'Green+Orange+Lime', '/assets/images/shoes/nike-gripknit+phantom+gx+elite-green+orange+lime.png'),
 
-	-- (1006, 'Black-White', 'https://i.ibb.co/4mXvtxv/nb-650v2-whiteblack.webp'),
-	-- (1006, 'White-Blue', 'https://i.ibb.co/yQkYycy/nb-650v2-whiteblue.webp'),
-	-- (1006, 'Black-Red', 'https://i.ibb.co/jrYTm71/nb-650v2-blackred.webp'),
-	-- (1006, 'White-Yellow', 'https://i.ibb.co/W6fR92n/nb-650v2-whiteyellow.webp');
+	(1006, 'Black+Brown', '/assets/images/shoes/nike-air+jordan+1+retro+high+og-black+brown.png'),
+	(1006, 'Grey+white', '/assets/images/nike-air+jordan+1+retro+high+og-grey+white.png'),
+	(1006, 'Grey+White+Black', '/assets/images/nike-air+jordan+1+retro+high+og-grey+white+black.png'),
+	(1006, 'Brown+White', '/assets/images/nike-air+jordan+1+retro+high+og-brown+white.png'),
 
-	(1000, 'Black', '/assets/images/shoes/adidas-breaknet2-blackwhite.png'),
-	(1000, 'White', '/assets/images/shoes/adidas-breaknet2-whitebluered.png'),
+	(1007, 'Black+Purple+White', '/assets/images/shoes/nike-air+jordan+1+hi+flyease-black+purple+white.png'),
 
-	(1001, 'Black', '/assets/images/shoes/nike-airmax90-black.png'),
+	(1008, 'Black', '/assets/images/shoes/adidas-originals+x+moncler+nmd+mid-black.png'),
+	(1008, 'White', '/assets/images/shoes/adidas-originals+x+moncler+nmd+mid-white.png'),
+	(1008, 'Blue+white', '/assets/images/shoes/adidas-originals+x+moncler+nmd+mid-blue+white.png'),
 
-	(1002, 'Black', '/assets/images/shoes/ua-mircogvalsetz-black.png'),
-	(1002, 'Gold', '/assets/images/shoes/ua-mircogvalsetz-gold.png'),
+	(1009, 'Black+White', '/assets/images/shoes/adidas-breaknet+2.0-black+white.png'),
+	(1009, 'White+Black', '/assets/images/shoes/adidas-breaknet+2.0-white+black.png'),
+	(1009, 'White+Blue+Red', '/assets/images/shoes/adidas-breaknet+2.0-white+blue+red.png'),
 
-	(1003, 'Black', '/assets/images/shoes/ua-assert9-blackwhite.png'),
+	(1010, 'Yellow+Violet', '/assets/images/shoes/new+balance-fuelcell+summit+unknown+v4-yellow+violet.png'),
+	(1010, 'Blue', '/assets/images/shoes/new+balance-fuelcell+summit+unknown+v4-blue.png'),
 
-	(1004, 'Black', '/assets/images/shoes/nike-gripknit-phantom-gx-blackwhite.png'),
-	(1004, 'Red', '/assets/images/shoes/nike-gripknit-phantom-gx-blackred.png'),
-	(1004, 'Green-Orange', '/assets/images/shoes/nike-gripknit-phantom-gx-greenorange.png'),
-
-	(1005, 'Black-White', '/assets/images/shoes/nb-650-whiteblack.png'),
-	(1005, 'Blue', '/assets/images/shoes/nb-650-whiteblue.png'),
-	(1005, 'Red', '/assets/images/shoes/nb-650-whitered.png'),
-
-	(1006, 'Black-White', '/assets/images/shoes/nb-650v2-whiteblack.png'),
-	(1006, 'White-Blue', '/assets/images/shoes/nb-650v2-whiteblue.png'),
-	(1006, 'Black-Red', '/assets/images/shoes/nb-650v2-blackred.png'),
-	(1006, 'White-Yellow', '/assets/images/shoes/nb-650v2-whiteyellow.png');
-
+	(1011, 'White', '/assets/images/shoes/new+balance-650-white.png'),
+	(1011, 'White+Black', '/assets/images/shoes/new+balance-650-white+black.png'),
+	(1011, 'White+Blue', '/assets/images/shoes/new+balance-650-white+blue.png'),
+	(1011, 'White+Green', '/assets/images/shoes/new+balance-650-white+green.png'),
+	(1011, 'White+Purple', '/assets/images/shoes/new+balance-650-white+purple.png'),
+	(1011, 'White+Red', '/assets/images/shoes/new+balance-650-white+red.png'),
+	(1011, 'White+Yellow', '/assets/images/shoes/new+balance-650-white+yellow.png'),
+	(1011, 'Black+Red', '/assets/images/shoes/new+balance-650-black+red.png'),
+;
 
 INSERT INTO shoe_catalog.users (username, full_name, password) VALUES ('ntruter42', 'Nicholas Truter', '$2b$10$cxK.emL.AHc7XzMf5fVaTe5gFjNblOowr71YC.qFN4UJvZ902VKzG');
-INSERT INTO shoe_catalog.carts (user_id) VALUES (1000);
+INSERT INTO shoe_catalog.carts (user_id) VALUES (1000)
+;
 
 INSERT INTO shoe_catalog.users (username, full_name, password) VALUES ('emusk69', 'Elon Musk', '$2b$10$aTEFSH3iQnefKPT9L3cOFuiEYyzcaKqh9JsiQElcjB2d.Uyrdhu96');
-INSERT INTO shoe_catalog.carts (user_id) VALUES (1001);
+INSERT INTO shoe_catalog.carts (user_id) VALUES (1001)
+;
 
 INSERT INTO shoe_catalog.cart_items (cart_id, item_id, item_count)
 VALUES
-	(1000, 1023, 1),
-	(1001, 1019, 1),
-	(1001, 1014, 1);
+	(1000, 1000, 1)
+;
 
 UPDATE shoe_catalog.carts SET checkout = current_timestamp WHERE user_id = 1000 AND checkout IS NULL;
 INSERT INTO shoe_catalog.carts (user_id) VALUES (1000);
-
-INSERT INTO shoe_catalog.cart_items (cart_id, item_id, item_count)
-VALUES
-	(1002, 1015, 1),
-	(1002, 1056, 1),
-	(1002, 1006, 2);
-
-
--- https://ibb.co/Mcb4612 - https://i.ibb.co/hBkjfd7/nike-airmax90-black.webp
-
--- https://ibb.co/WBnFQCM - https://i.ibb.co/3S1WwKj/adidas-breaknet2-blackwhite.webp
--- https://ibb.co/rkbNPKP - https://i.ibb.co/JnxgLWL/adidas-breaknet2-whitebluered.webp
-
--- https://ibb.co/8zJphJP - https://i.ibb.co/DGNyqNw/ua-mircogvalsetz-black.webp
--- https://ibb.co/BnVdv39 - https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp
-
--- https://ibb.co/yXTVgVM - https://i.ibb.co/JKLCrCb/ua-assert9-blackwhite.webp
-
--- https://ibb.co/88cDVCz - https://i.ibb.co/SvrXpjQ/nike-gripknit-phantom-gx-blackred.webp
--- https://ibb.co/Bfj5SLC - https://i.ibb.co/2FP1fqk/nike-gripknit-phantom-gx-blackwhite.webp
--- https://ibb.co/wsRfJMD - https://i.ibb.co/ySXrhWL/nike-gripknit-phantom-gx-G/Orangeorange.webp
-
--- https://ibb.co/y896F6T - https://i.ibb.co/D7J9f9X/nb-650-whiteblack.webp
--- https://ibb.co/CJgcpMX - https://i.ibb.co/Gsy6ft1/nb-650-whiteblue.webp
--- https://ibb.co/X7Vctyy - https://i.ibb.co/QPXyM88/nb-650-whitered.webp
-
--- https://ibb.co/LZy8m42 - https://i.ibb.co/jrYTm71/nb-650v2-blackred.webp
--- https://ibb.co/Vjzn98n - https://i.ibb.co/4mXvtxv/nb-650v2-whiteblack.webp
--- https://ibb.co/mcyXqVq - https://i.ibb.co/yQkYycy/nb-650v2-whiteblue.webp
--- https://ibb.co/ZVxbsMd - https://i.ibb.co/W6fR92n/nb-650v2-whiteyellow.webp
-
