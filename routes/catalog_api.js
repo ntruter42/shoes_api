@@ -133,7 +133,10 @@ carts_api.get('/:user_id', async (req, res) => {
 		if (cart.length <= 1) {
 			throw new Error();
 		}
-		res.status(200).json(cart);
+		res.json({
+			status: "Success",
+			cart
+		});
 	} catch (error) {
 		res.status(500).json(error);
 	}

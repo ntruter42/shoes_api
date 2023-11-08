@@ -43,9 +43,11 @@ export default () => {
 			if (!filters.brands.includes(shoe.brand)) {
 				filters.brands.push(shoe.brand);
 			}
-			if (!filters.colors.includes(shoe.color)) {
-				filters.colors.push(shoe.color);
-			}
+			shoe.color.split('+').forEach(color => {
+				if (!filters.colors.includes(color)) {
+					filters.colors.push(color);
+				}
+			});
 			if (!filters.sizes.includes(shoe.size)) {
 				filters.sizes.push(shoe.size);
 			}
